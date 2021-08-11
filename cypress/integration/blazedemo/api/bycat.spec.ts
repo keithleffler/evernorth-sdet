@@ -1,7 +1,7 @@
 
 import {testValues} from './testValues';
 import {TsjsonParser } from 'ts-json-validator';
-import { getBycatSchema } from './schemas/bycatSchema';
+import { getBycatSchema } from '../../../support/api/schemas/bycatSchema';
 
 describe('/bycat', () => {
 
@@ -10,7 +10,9 @@ describe('/bycat', () => {
         method: 'post'
     }}
 
+
     it('POST /bycat returns 200 OK and retults for valid categories',  () => {
+        
         for (const category of testValues.validCategories) {
             const options = {
                 ...baseOptions(),

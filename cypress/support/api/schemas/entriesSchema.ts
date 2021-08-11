@@ -1,5 +1,5 @@
 import { createSchema } from 'ts-json-validator';
-import { testValues } from '../testValues';
+import { testValues } from '../../../integration/blazedemo/api/testValues';
 
 export const getEntrySchema = () => createSchema({
    type: 'object',

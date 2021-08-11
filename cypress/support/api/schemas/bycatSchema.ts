@@ -1,5 +1,5 @@
 import { createSchema } from 'ts-json-validator';
-import { testValues } from '../testValues';
+import { testValues } from '../../../integration/blazedemo/api/testValues';
 import { getEntrySchema } from './entriesSchema';
 
 export const getBycatSchema = () => createSchema({
