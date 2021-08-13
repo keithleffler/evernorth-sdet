@@ -1,8 +1,11 @@
 import { ApiTestData } from "../../../fixtures/apiTestData"
 import { EntriesResponse } from '../../../support/api/entries';
 import { ResponseVerifier } from '../../../support/api/ResponseVerifier';
+import { StatusCode } from 'status-code-enum';
 import { getMultipleEntriesSchema } from '../../../support/api/schemas/entriesSchema';
-describe('/entries', () => {
+
+describe('Integration testing: /entries endpoint', () => {
+
     const requestOptions = (apiTestData: ApiTestData) => {return  {
         url: `${apiTestData.apiURL}/entries`,
         method: 'get'
@@ -14,7 +17,9 @@ describe('/entries', () => {
                 cy
                     .request(requestOptions(apiTestData))
                     .then((response: Cypress.Response<EntriesResponse.MultipleEntries>) => {
-                        ResponseVerifier.verifyResponse(200, response, getMultipleEntriesSchema())
+
+                        // Verify that the response code is correct and that the returned data has the correct structure.
+                        ResponseVerifier.verifyResponse(StatusCode.SuccessOK, response, getMultipleEntriesSchema())
                     })
         })
     });

@@ -4,19 +4,19 @@ import { getBycatSchema } from '../../../support/api/schemas/bycatSchema';
 import { ApiTestData } from '../../../fixtures/apiTestData';
 import { ResponseVerifier } from '../../../support/api/ResponseVerifier';
 import { BycatResponse } from '../../../support/api/bycat';
+import { StatusCode } from 'status-code-enum';
+describe('Integration testing: /bycat endpoint', () => {
 
-describe('/bycat: Test integration with the /bycat endpoint', () => {
-
-    const baseOptions = (apiTestData: ApiTestData) => {return  {
+    const requestOptions = (apiTestData: ApiTestData) => {return  {
         url: `${apiTestData.apiURL}/bycat`,
         method: 'post'
     }}
 
-    it('POST /bycat returns 200 OK and correctly formated results for valid categories',  () => {
+    it('POST /bycat returns 200 OK and correctly structured results for valid categories',  () => {
         cy.fixture('apiTestData').then((apiTestData: ApiTestData) => {
             for (const category of apiTestData.validCategories) {
                 const options = {
-                    ...baseOptions(apiTestData),
+                    ...requestOptions(apiTestData),
                     body: {cat: category},
                 };
                 cy
@@ -30,7 +30,7 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
         cy.fixture('apiTestData').then((apiTestData: ApiTestData) => {
             for (const invalidCategory of apiTestData.invalidCategories) {
                 const options = {
-                    ...baseOptions(apiTestData),
+                    ...requestOptions(apiTestData),
                     body: {cat: invalidCategory},
                 };
 
@@ -38,7 +38,7 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
                     .request(options).then((response: Cypress.Response<BycatResponse>)  => {
 
                         // Verify the response code is expected, and that the response is correctly structured.
-                        ResponseVerifier.verifyResponse(200, response, getBycatSchema());
+                        ResponseVerifier.verifyResponse(StatusCode.SuccessOK, response, getBycatSchema());
 
                         // Verify that `Items` is included in the response, since it's optional in the response
                         expect("Items" in response.body, "Verify Items field included in response").to.be.true;
@@ -53,7 +53,7 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
     it('POST /bycat returns 200 OK and an error message for an invalid request body', () => {
         cy.fixture('apiTestData').then((apiTestData: ApiTestData) => {
             const options = {
-                ...baseOptions(apiTestData),
+                ...requestOptions(apiTestData),
                 body: apiTestData.invalidRequestBody
             };
             cy.log(`Checking invalid request body ${JSON.stringify(options.body)}`)
@@ -61,9 +61,9 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
                 .then((response: Cypress.Response<BycatResponse>) => {
 
                     // Verify the expected response code, and that the response is correctly structured
-                    ResponseVerifier.verifyResponse(200, response, getBycatSchema());
+                    ResponseVerifier.verifyResponse(StatusCode.SuccessOK, response, getBycatSchema());
 
-                    // Verify that `errorMessage` is included in the response, since it's an optiona field but expected in this case.
+                    // Verify that `errorMessage` is included in the response, since it's an optional field but expected in this case.
                     expect('errorMessage' in response.body, "Verify 'errorMessage' is in response body").to.be.true;
                 })
         })

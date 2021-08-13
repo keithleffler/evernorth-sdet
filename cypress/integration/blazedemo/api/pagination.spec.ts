@@ -2,8 +2,9 @@ import { ApiTestData } from "../../../fixtures/apiTestData"
 import { PaginationResponse } from "../../../support/api/pagination"
 import { ResponseVerifier } from "../../../support/api/ResponseVerifier"
 import { getPaginationSchema } from "../../../support/api/schemas/pagnationSchema"
+import { StatusCode } from 'status-code-enum';
 
-describe('/pagination: Test integration with the /pagination endpoint', () => {
+describe('Integration testing: /pagination endpoint', () => {
     const baseOptions = (apiTestData: ApiTestData) => { return {
         url: `${apiTestData.apiURL}/pagination`,
         method: 'post'
@@ -20,7 +21,7 @@ describe('/pagination: Test integration with the /pagination endpoint', () => {
                  .then((response: Cypress.Response<PaginationResponse>) => {
 
                      // Verify response code and response.body structure
-                     ResponseVerifier.verifyResponse(200, response, getPaginationSchema());
+                     ResponseVerifier.verifyResponse(StatusCode.SuccessOK, response, getPaginationSchema());
 
                      // Verify that the number of items returned matches the `ScannedCount' value.
                      expect(response.body.Items.length).to.equal(response.body.ScannedCount);
