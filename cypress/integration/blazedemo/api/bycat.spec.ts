@@ -22,7 +22,7 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
                 cy
                     .log(`Checking cat = ${category}`)
                     .request(options)
-                    .then((response: BycatResponse) => ResponseVerifier.verifyResponse(200, response, getBycatSchema()));
+                    .then((response: Cypress.Response<BycatResponse>) => ResponseVerifier.verifyResponse(200, response, getBycatSchema()));
             }
         })
     })
@@ -35,7 +35,7 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
                 };
 
                 cy.log(`Checking invalid category ${invalidCategory}`)
-                    .request(options).then((response: BycatResponse)  => {
+                    .request(options).then((response: Cypress.Response<BycatResponse>)  => {
                         ResponseVerifier.verifyResponse(200, response, getBycatSchema());
                         expect("Items" in response.body, "Verify Items field included in response").to.be.true;
                         expect(response.body.Items.length, "Verify length of Items === 0").to.equal(0);
@@ -51,7 +51,7 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
             };
             cy.log(`Checking invalid request body ${JSON.stringify(options.body)}`)
             cy.request(options)
-                .then((response) => {
+                .then((response: Cypress.Response<BycatResponse>) => {
                     ResponseVerifier.verifyResponse(200, response, getBycatSchema());
                     expect('errorMessage' in response.body, "Verify 'errorMessage' is in response body").to.be.true;
                 })

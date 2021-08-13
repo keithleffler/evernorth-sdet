@@ -17,7 +17,7 @@ describe('/pagination: Test integration with the /pagination endpoint', () => {
              };
              cy.log('Checking /pagination, id = ')
                  .request(options)
-                 .then((response: PaginationResponse) => ResponseVerifier.verifyResponse(200, response, getPaginationSchema()));
+                 .then((response: Cypress.Response<PaginationResponse>) => ResponseVerifier.verifyResponse(200, response, getPaginationSchema()));
         })
 
 

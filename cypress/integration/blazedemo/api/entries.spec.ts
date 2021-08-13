@@ -13,7 +13,7 @@ describe('/entries', () => {
             .then((apiTestData:ApiTestData) => {
                 cy
                     .request(requestOptions(apiTestData))
-                    .then((response) => {
+                    .then((response: Cypress.Response<EntriesResponse.MultipleEntries>) => {
                         ResponseVerifier.verifyResponse(200, response, getMultipleEntriesSchema())
                     })
         })
