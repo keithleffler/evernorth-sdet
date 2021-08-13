@@ -9,25 +9,30 @@ Keith Leffler
 2. The tester's system must have node installed, and optionally `yarn`
 3. Install dependencies:
 
-   `cd <project_folder>/evernorth_sdet`
 
-    execute `npm i` or `yarn`. 
+    $> `cd <project_folder>/evernorth_sdet`
+
+    $> `npm i` 
+
+or 
+
+    $> `yarn`
+
 
 4. To run all tests from the command line:
 
 
-    `npm run cypress:run`
-
-    or 
-
-    `yarn cypress:run`
+        `npm run cypress:run`or `yarn cypress:run`
 
 
-To open the Cypress GUI, execute `npm run cypress:open`  
+5. To open the Cypress GUI, execute
 
-or 
 
-`yarn cypress:open`
+   `npm run cypress:open`
+
+or
+
+    `yarn cypress:open`
 
 
 ## Reports

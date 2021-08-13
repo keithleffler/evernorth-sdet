@@ -5,14 +5,14 @@ import { ApiTestData } from '../../../fixtures/apiTestData';
 import { ResponseVerifier } from '../../../support/api/ResponseVerifier';
 import { BycatResponse } from '../../../support/api/bycat';
 
-describe('/bycat', () => {
+describe('/bycat: Test integration with the /bycat endpoint', () => {
 
     const baseOptions = (apiTestData: ApiTestData) => {return  {
         url: `${apiTestData.apiURL}/bycat`,
         method: 'post'
     }}
 
-    it('POST /bycat returns 200 OK and retults for valid categories',  () => {
+    it('POST /bycat returns 200 OK and correctly formated results for valid categories',  () => {
         cy.fixture('apiTestData').then((apiTestData: ApiTestData) => {
             for (const category of apiTestData.validCategories) {
                 const options = {
@@ -26,7 +26,7 @@ describe('/bycat', () => {
             }
         })
     })
-    it('POST /bycat returns 200 OK and an empty array for unknown category and valid body', () => {
+    it('POST /bycat returns 200 OK and an empty array for an unknown category and valid body', () => {
         cy.fixture('apiTestData').then((apiTestData: ApiTestData) => {
             for (const invalidCategory of apiTestData.invalidCategories) {
                 const options = {
@@ -43,7 +43,7 @@ describe('/bycat', () => {
             }
         })
     })
-    it('POST /bycat returns 200 OK and an error message for an invalid body', () => {
+    it('POST /bycat returns 200 OK and an error message for an invalid request body', () => {
         cy.fixture('apiTestData').then((apiTestData: ApiTestData) => {
             const options = {
                 ...baseOptions(apiTestData),

@@ -1,5 +1,7 @@
+
+// Define the shape of the response from GET /entries
 export namespace EntriesResponse {
-    export interface GetEntry {
+     export interface Entry {
         cat: string,
         desc: string,
         id: number,
@@ -9,7 +11,7 @@ export namespace EntriesResponse {
     }
 
     export interface MultipleEntries {
-        Items: string[],
+        Items: Entry[],
         LastEvaluatedKey: {id: number}
     }
 }

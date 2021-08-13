@@ -1,6 +1,6 @@
 describe('https://www.demoblaze.com/index.html', () => {
-    it('r', () => {
-        cy.visit('/')
+    it('loads the page', () => {
+        cy.visit('/index.html')
     })
 })
 
