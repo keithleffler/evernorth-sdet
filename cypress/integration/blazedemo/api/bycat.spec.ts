@@ -36,8 +36,15 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
 
                 cy.log(`Checking invalid category ${invalidCategory}`)
                     .request(options).then((response: Cypress.Response<BycatResponse>)  => {
+
+                        // Verify the response code is expected, and that the response is correctly structured.
                         ResponseVerifier.verifyResponse(200, response, getBycatSchema());
+
+                        // Verify that `Items` is included in the response, since it's optional in the response
                         expect("Items" in response.body, "Verify Items field included in response").to.be.true;
+
+                        // Verify that Items has length === 0.
+
                         expect(response.body.Items.length, "Verify length of Items === 0").to.equal(0);
                 });
             }
@@ -52,7 +59,11 @@ describe('/bycat: Test integration with the /bycat endpoint', () => {
             cy.log(`Checking invalid request body ${JSON.stringify(options.body)}`)
             cy.request(options)
                 .then((response: Cypress.Response<BycatResponse>) => {
+
+                    // Verify the expected response code, and that the response is correctly structured
                     ResponseVerifier.verifyResponse(200, response, getBycatSchema());
+
+                    // Verify that `errorMessage` is included in the response, since it's an optiona field but expected in this case.
                     expect('errorMessage' in response.body, "Verify 'errorMessage' is in response body").to.be.true;
                 })
         })

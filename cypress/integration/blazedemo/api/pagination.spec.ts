@@ -17,7 +17,14 @@ describe('/pagination: Test integration with the /pagination endpoint', () => {
              };
              cy.log('Checking /pagination, id = ')
                  .request(options)
-                 .then((response: Cypress.Response<PaginationResponse>) => ResponseVerifier.verifyResponse(200, response, getPaginationSchema()));
+                 .then((response: Cypress.Response<PaginationResponse>) => {
+
+                     // Verify response code and response.body structure
+                     ResponseVerifier.verifyResponse(200, response, getPaginationSchema());
+
+                     // Verify that the number of items returned matches the `ScannedCount' value.
+                     expect(response.body.Items.length).to.equal(response.body.ScannedCount);
+                 });
         })
 
 
