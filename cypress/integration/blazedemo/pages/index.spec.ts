@@ -16,7 +16,7 @@ describe('https://www.demoblaze.com/index.html', () => {
         cy.intercept('GET', '/entries').as('entries');
 
         // Click on the first category button
-        cy.get(IndexHTML.FirstCategoryButton.selector).click();
+        cy.get(IndexHTML.FirstCategoryButton.selector)[0].click();
 
         // Click on the `Add to cart button
         cy.get(ProdHTML.AddProductButton.selector).click()
