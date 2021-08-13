@@ -1,5 +1,4 @@
 import { createSchema } from 'ts-json-validator';
-import { testValues } from '../../../integration/blazedemo/api/testValues';
 import { getEntrySchema } from './entriesSchema';
 
 export const getBycatSchema = () => createSchema({
@@ -11,7 +10,6 @@ export const getBycatSchema = () => createSchema({
                     type: 'array',
                     items: getEntrySchema(),
                 }),
-
             }}),
         createSchema({
             type: 'object',

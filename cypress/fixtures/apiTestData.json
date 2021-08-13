@@ -1,5 +1,6 @@
 {
   "apiURL" : "https://api.demoblaze.com",
   "validCategories": ["laptop", "phone", "monitor"],
-  "invalidCategories": ["foo", "", "12345" ]
+  "invalidCategories": ["foo", "", "12345" ],
+  "invalidRequestBody":{"foo": "phone"}
 }
